@@ -1,0 +1,34 @@
+<div class="container">
+  <%= render "templates/top_menu" %>
+
+  <h2>Minhas Tarefas</h2>
+  <%= render "list", tarefas: @tarefas, tarefas_proprias: true %>
+
+  <% if current_usuario.gestor? %>
+    <hr class="m-5">
+    <h2 class="mb-3">Minhas Equipes</h2>
+    <% current_usuario.equipes.each_with_index do |equipe, index| %>
+      <h4 class="mb-3">
+        <%= link_to equipe.nome, equipe_path(equipe), remote: true %>
+      </h4> 
+      <% equipe.usuarios.each do |usuario| %>
+        <% unless usuario == current_usuario %>
+          <h6>
+            <%= usuario.nome %>
+          </h6> 
+          <%= render "list", tarefas: usuario.tarefas, tarefas_proprias: false %>
+        <% end %>
+      <% end %>
+      <% unless index == (current_usuario.equipes.count - 1) %>
+        <hr class="m-5">
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content"></div>
+    </div>
+  </div>
+    
+</div>

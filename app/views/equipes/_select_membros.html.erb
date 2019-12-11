@@ -1,0 +1,5 @@
+<%= form_for @equipe do |f| %>
+  <div class="form-group">
+    <%=  f.select :usuarios, Usuario.usuarios_disponiveis_adicao_equipe(equipe.id), {include_blank: "Selecione"}, {class: "form-control"} %>
+  </div>
+<% end %>

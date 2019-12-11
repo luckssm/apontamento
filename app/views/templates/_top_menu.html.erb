@@ -1,0 +1,10 @@
+<div class="header mb-5 mt-3">
+  <h1 class="d-inline">Bem-vindo, <%= current_usuario.nome %></h1>
+  <div class="botoes_header d-inline float-right mt-1">
+    <%= link_to 'Nova Tarefa', nova_tarefa_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-primary btn-lg'}  %>
+    <% if current_usuario.gestor? %>
+      <%= link_to 'Nova Equipe', nova_equipe_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', class: 'btn btn-secondary btn-lg'}  %>
+    <% end %>
+    <%= link_to('Logout', destroy_usuario_session_path, method: :delete) %> 
+  </div>
+</div>

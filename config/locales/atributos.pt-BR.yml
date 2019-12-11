@@ -1,0 +1,44 @@
+# encoding: "UTF-8"
+pt-BR:
+  activerecord:
+    models:
+      tarefa: "Tarefa"
+      equipe: "Equipe"
+
+    attributes:
+
+      tarefa:
+        tarefas: "Tarefas"
+        termino: "Término"
+        inicio: "Início"
+        status: "Status"
+        acoes: "Ações"
+        motivo_cancelamento: "Motivo cancelamento"
+
+      equipe:
+        nome: "Nome"
+
+      tarefa/statuses:
+        a_fazer: "A fazer"
+        em_andamento: "Em Andamento"
+        concluida: "Concluída"
+        cancelada: "Cancelada"
+
+    errors:
+      models:
+        tarefa:
+          attributes:
+            motivo_cancelamento:
+              blank: "não pode ficar em branco"
+            termino:
+              blank: "não pode ficar em branco"
+            inicio:
+              blank: "não pode ficar em branco"
+            nome:
+              blank: "não pode ficar em branco"
+        equipe:
+          attributes:
+            nome:
+              blank: "não pode ficar em branco"
+
+                

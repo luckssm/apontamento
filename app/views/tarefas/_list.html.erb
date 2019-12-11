@@ -1,0 +1,35 @@
+<table class="table table-striped table-bordered mb-5">
+  <thead class="table-dark text-center">
+    <tr>
+      <th scope="col"><%= I18n.t('activerecord.attributes.tarefa.tarefas') %></th>
+      <th scope="col"><%= I18n.t('activerecord.attributes.tarefa.inicio') %></th>
+      <th scope="col"><%= I18n.t('activerecord.attributes.tarefa.termino') %></th>
+      <th scope="col"><%= I18n.t('activerecord.attributes.tarefa.status') %></th>
+      <% if tarefas_proprias %>
+        <th scope="col"><%= I18n.t('activerecord.attributes.tarefa.acoes') %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% tarefas.each do |tarefa| %>
+      <tr class="text-center">  
+        <td><%= link_to tarefa.nome, tarefa_path(tarefa), remote: true %></td>
+        <td><%= tarefa.inicio_to_s %></td>
+        <td><%= tarefa.termino_to_s unless tarefa.termino.blank? %></td>
+        <td><%= tarefa.status_to_s %></td>
+        <% if tarefas_proprias %>
+          <td>
+            <% unless tarefa.finalizada? %>
+              <%= link_to cancelar_tarefa_path(tarefa), remote: true, :title => 'Cancelar' do %>
+                <%= render "templates/svg/red_cross" %> 
+              <% end %>
+              <%= link_to concluir_tarefa_path(tarefa), remote: true, :title => 'Concluir' do %>
+                <%= render "templates/svg/blue_check" %>
+              <% end %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

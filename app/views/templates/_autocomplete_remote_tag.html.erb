@@ -1,0 +1,49 @@
+<script type="text/javascript">
+  $(function() {
+    $('<%= dom_element %>').autocomplete({
+        minLength: 3,
+        source: function(request, response) {
+          $.ajax({
+            url: '<%= source_path %>',
+            dataType: 'json',
+            data: {
+              term: request.term,
+              <% if defined? additional_params %>
+                <%= additional_params.collect{|key, value| "#{key.to_s}: $(\"##{value.to_s}\").val()".html_safe}.join(',').html_safe %>
+              <% end %>
+            },
+            beforeSend: function() {
+              $('<%= dom_element %>').addClass('loader');
+            },
+            success: function(data) {
+              $('<%= dom_element %>').removeClass('loader');
+              response($.map(data, function(item) {
+                return {
+                  label: item.label,
+                  value: item.value
+                }
+              }));
+            }
+          });
+        },
+        focus: function( event, ui ) {
+          $( '<%= dom_element %>' ).val( ui.item.label );
+          return false;
+        },
+        select: function( event, ui ) {
+          $( '<%= dom_element %>' ).val( ui.item.label );
+          $( '<%= dom_element_id %>' ).val( ui.item.value ).trigger('change');
+          return false;
+        },
+        appendTo: "<%= append_to unless append_to.blank? %>"
+      });
+
+    $(document).on('blur', "<%= dom_element %>", function() {
+      if($(this).val() == "" ) {
+        $('<%= dom_element_id %>').val("").trigger('change');
+      }
+    });
+
+  });
+
+</script>

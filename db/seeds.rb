@@ -1,0 +1,1 @@
+require File.expand_path( '../seeds/usuarios', __FILE__ )
